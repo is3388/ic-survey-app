@@ -12,16 +12,21 @@ app.use(express.urlencoded({extended: false}))
 passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback'
-}, (accessToken) => {
-    console.log(accessToken)
+    callbackURL: '/auth/google/callback' // after permission is granted to express server and redirect user
+}, (accessToken, refreshToken, profile, done) => {
+    console.log('Access Token:', accessToken)
+    console.log('Refesh Token:', refreshToken)
+    console.log('Profile:', profile)
 }))
-// passport.use(new FacebookStrategy({}))
-// first arg is which strategy provider
-// google server only give permission to access user's profile and email
+// passport.use(new FacebookStrategy({options here}))
+// express server make the first request to google server
+// and tell passport start authentication flow. first arg is which strategy provider
+// express server only ask to get access to user's profile and email
 app.get('/auth/google', passport.authenticate('google', {
     scope: ['profile', 'email']
 }))
+// route handler to handle after permission is granted and redirect user to express server
+app.get('/auth/google/callback', passport.authenticate('google'))
 
 const PORT = process.env.PORT || 5000
 
