@@ -1,14 +1,15 @@
 const express = require('express')
+const mongoose = require('mongoose')
+const keys = require('./config/keys')
+require('./models/User')
 require('./services/passport') // make sure the configuration execute once and no need to export anything, so no variable
 const authRouter = require('./routes/authRoutes')
-const { passportConfig } = require('./services/passport')
-const keys = require('./config/keys')
+
+mongoose.connect(keys.mongoURI)
 const app = express()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
-
-passportConfig(keys.mongoURI)
 
 // authRoutes return a function and immediately call that function with the app object
 //require('./routes/authRoutes')(app)
