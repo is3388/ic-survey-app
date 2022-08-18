@@ -31,5 +31,14 @@ router.get('/api/current_user', (req, res) => {
     res.send(req.user)
 })
 
+// route to logout 
+// passport auto attaches the req.user property to the req object 
+// passport also attach functions to maintain user's authentication 
+// once logout, passport kills the cookie containing the user Id
+router.get('/api/logout', (req, res) => {
+    req.logout()
+    res.send(req.user)
+})
+
 module.exports = router
 
