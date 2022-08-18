@@ -5,6 +5,20 @@ const keys = require('../config/keys')
 
 const User = mongoose.model('User')
 
+// function will be auto called by passport to create a cookie with token
+passport.serializeUser((user, done) => { // user is an instance of User model and user.id is the _id that mongo created
+    done(null, user.id) // 1st arg is error object and 2nd arg is whatever we pull out from DB either retreive a user or create new user
+    // save a cookie with user's id
+})
+
+// function will be auto called by passport to convert the token into user instance
+passport.deserializeUser((id, done) => { // id is what we stuffed into cookie in serializeUser function
+    User.findById(id)
+    .then(user => {
+        done(null, user) // 
+    })
+})
+
 // passport configuration
 // generic register to let passport know there is a new strategy available
     passport.use(new GoogleStrategy({
@@ -15,7 +29,7 @@ const User = mongoose.model('User')
     User.findOne({googleId: profile.id})
     .then((existingUser) => {
         if(existingUser) {
-            done(null, existingUser) // first arg is eroor object and 2nd arg is the user record
+            done(null, existingUser) // first arg is error object and 2nd arg is the user record either found or created
         }
         else {
             new User({googleId: profile.id}).save() 
