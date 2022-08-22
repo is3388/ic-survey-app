@@ -24,7 +24,8 @@ passport.deserializeUser((id, done) => { // id is what we stuffed into cookie in
     passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
-    callbackURL: '/auth/google/callback' // after permission is granted to express server and invoke callback (2nd arg) redirect user
+    callbackURL: '/auth/google/callback', // after permission is granted to express server and invoke callback (2nd arg) redirect user
+    proxy: true // to tell google strategy to trust requests coming thru a heroku proxy and calculate the URL correctly that matches we authorize
 }, (accessToken, refreshToken, profile, done) => { // done is to tell passport the task succeed or not
     User.findOne({googleId: profile.id})
     .then((existingUser) => {
