@@ -10,6 +10,8 @@ const authRouter = require('./routes/authRoutes')
 mongoose.connect(keys.mongoURI)
 const app = express()
 
+// app.set('trust proxy', true)
+
 // enable cookie
 // maxAge is the expiration to the cookie in millisecond
 // keys array to be more secured that can randomly pick and sign, encrypt the cookie
