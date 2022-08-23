@@ -21,22 +21,20 @@ passport.deserializeUser((id, done) => { // id is what we stuffed into cookie in
 
 // passport configuration
 // generic register to let passport know there is a new strategy available
-    passport.use(new GoogleStrategy({
+passport.use(new GoogleStrategy({
     clientID: keys.googleClientID,
     clientSecret: keys.googleClientSecret,
     callbackURL: '/auth/google/callback', // after permission is granted to express server and invoke callback (2nd arg) redirect user
     proxy: true // to tell google strategy to trust requests coming thru a heroku proxy and calculate the URL correctly that matches we authorize
-}, (accessToken, refreshToken, profile, done) => { // done is to tell passport the task succeed or not
-    User.findOne({googleId: profile.id})
-    .then((existingUser) => {
+}, async (accessToken, refreshToken, profile, done) => { // done is to tell passport the task succeed or not
+    const existingUser = await User.findOne({googleId: profile.id})
         if(existingUser) {
-            done(null, existingUser) // first arg is error object and 2nd arg is the user record either found or created
+            return done(null, existingUser) // first arg is error object and 2nd arg is the user record either found or created
         }
-        else {
-            new User({googleId: profile.id}).save() 
-             .then(user => done(null, user))
-        }
-    }  )
-}))
+        
+            const user = await new User({googleId: profile.id}).save() 
+            done(null, user)
+    }
+))
 
 // passport.use(new FacebookStrategy({options here})) for multiple strategy
