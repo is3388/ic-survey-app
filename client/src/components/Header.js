@@ -1,19 +1,28 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+//import { Link } from 'react-router-dom'
 
 function Header () {
     const auth = useSelector(state => state.auth)
     console.log(auth)
+
     const renderContent = () => {
         switch (auth) {
             case null:
                 return 
             case false:
-                return (<li><a href='/auth/google'>Login With Google</a></li>)
+                return (
+                        <li><a href='/auth/google'>Login With Google</a></li>
+                        )
             default:
-                return (<li><a href='/#'>Logout</a></li>)
+                return (
+                        <li><a href='/auth/api/logout'>Logout</a></li>
+                        )
+            /*default:
+                return <li><a onClick={()=>dispatch(logoutUser())}>Log Out</a></li>*/
         }
     }
+
     return (
         <nav>
             <div className='nav-wrapper'>

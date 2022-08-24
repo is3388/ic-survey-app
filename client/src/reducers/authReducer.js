@@ -5,6 +5,7 @@
     }
 }*/
 
+//import { FETCH_USER, LOGOUT_USER } from "../actions/types"
 import { FETCH_USER } from "../actions/types"
 
 // null meaning don't know if user is logged in or not. Request is pending.
@@ -14,6 +15,8 @@ const authReducer = (state=null, action) => {
     switch (action.type) {
         case FETCH_USER:
             return action.payload || false
+        // case LOGOUT_USER: 
+           // return false
         default: 
             return state
     }
