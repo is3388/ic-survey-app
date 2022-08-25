@@ -27,8 +27,8 @@ function Header () {
         <nav>
             <div className='nav-wrapper'>
                 <div className="row">
-                    <div className="col s12" style={{background: '#e76b50'}}>
-                        <a href='/#' className='left brand-logo'>Email Survey</a>
+                    <div className="col s12 primary-color">
+                        <a href='/' className='left brand-logo' style={{paddingLeft:'1rem'}}>Email Survey</a>
                             <ul className='right'>
                                 {renderContent()}
                             </ul>

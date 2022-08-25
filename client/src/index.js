@@ -4,6 +4,7 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, compose } from 'redux'
 import reducers from './reducers'
 import App from './components/App'
+import './index.css';
 import 'materialize-css/dist/css/materialize.min.css'
 import reduxThunk from 'redux-thunk'
 

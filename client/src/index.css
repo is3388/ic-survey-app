@@ -1,0 +1,24 @@
+.primary-color {
+    Background: #e76b50!important;
+}
+
+.spacing {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.icon-size {
+    font-size: 2rem;
+}
+
+.text-header {
+    vertical-align: top; 
+    font-size:large;
+    padding:0.5rem; 
+    font-weight:600;
+    color: #e76b50;
+}
+    
+
+
+    
