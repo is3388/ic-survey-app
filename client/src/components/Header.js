@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-//import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 function Header () {
     const auth = useSelector(state => state.auth)
@@ -28,7 +28,7 @@ function Header () {
             <div className='nav-wrapper'>
                 <div className="row">
                     <div className="col s12 primary-color">
-                        <a href='/' className='left brand-logo' style={{paddingLeft:'1rem'}}>Email Survey</a>
+                        <Link to={auth ? '/surveys' : '/'} className='left brand-logo' style={{paddingLeft:'1rem'}}>Email Survey</Link>
                             <ul className='right'>
                                 {renderContent()}
                             </ul>
