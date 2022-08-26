@@ -18,7 +18,26 @@
     font-weight:600;
     color: #e76b50;
 }
-    
+  
+nav ul a {
+    font-weight: bold!important;
+}
 
+.StripeCheckout span {
+    background-image: none!important;
+    background: gray!important;
+    box-shadow: none!important;
+}
+
+.button>.inner>button {
+    background: gray!important;
+}
+
+#addCredit {
+    text-transform: capitalize;
+    font-size: 1.05rem;
+    background: gray;
+    font-weight: bold;
+}
 
     
