@@ -14,7 +14,7 @@ export const fetchUser = () =>
     // make a post request to backend server with token that after Stripe send it back
     // since FETCH_USER action returns the user model with updated credits, reuse this action type
      async (dispatch) => {
-     const {data} = await axios.post('/auth/api/stripe', token) 
+     const {data} = await axios.post('/api/stripe', token) 
        dispatch({ type: FETCH_USER, payload: data})
      }
 

@@ -6,6 +6,7 @@ const keys = require('./config/keys')
 require('./models/User')
 require('./services/passport') // make sure the configuration execute once and no need to export anything, so no variable
 const authRouter = require('./routes/authRoutes')
+const billingRouter = require('./routes/billingRoutes')
 
 mongoose.connect(keys.mongoURI)
 const app = express()
@@ -27,9 +28,10 @@ app.use(passport.session())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
-// authRoutes return a function and immediately call that function with the app object
+// authRoutes return a function and immediately call that function with the express app object
 //require('./routes/authRoutes')(app)
 app.use('/auth', authRouter)
+app.use('/api', billingRouter)
 
 const PORT = process.env.PORT || 5000
 
