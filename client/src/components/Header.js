@@ -19,6 +19,7 @@ function Header () {
                 return (
                         <>
                         <li><Payments /></li>
+                        <li style={{margin: '0 1rem', fontWeight: 'bold'}}>Credits: {auth.credits}</li>
                         <li><a href='/auth/api/logout'>Logout</a></li>
                         </>
                         )
