@@ -4,6 +4,7 @@ const cookieSession = require('cookie-session')
 const passport = require('passport') 
 const keys = require('./config/keys')
 require('./models/User')
+require('./models/Survey')
 require('./services/passport') // make sure the configuration execute once and no need to export anything, so no variable
 const authRouter = require('./routes/authRoutes')
 const billingRouter = require('./routes/billingRoutes')
