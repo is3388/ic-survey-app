@@ -8,6 +8,7 @@ require('./models/Survey')
 require('./services/passport') // make sure the configuration execute once and no need to export anything, so no variable
 const authRouter = require('./routes/authRoutes')
 const billingRouter = require('./routes/billingRoutes')
+const surveyRouter = require('./routes/surveyRoutes')
 
 mongoose.connect(keys.mongoURI)
 const app = express()
@@ -33,6 +34,7 @@ app.use(express.urlencoded({extended: false}))
 //require('./routes/authRoutes')(app)
 app.use('/auth', authRouter)
 app.use('/api', billingRouter)
+app.use('/surveys', surveyRouter)
 
 if (process.env.NODE_ENV === 'production') {
     // Express serve up public assets such as main.js (all js files to build the front end), main.css files
