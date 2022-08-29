@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import {BrowserRouter, Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route} from 'react-router-dom'
 import Header from './Header'
 import Landing from './Landing'
 import { fetchUser } from '../actions'
@@ -21,10 +21,11 @@ const App = () => {
             <BrowserRouter>
                 <div>
                     <Header />
+                    <Switch>
                     <Route exact path='/' component={Landing} />
                     <Route exact path='/surveys' component={Dashboard} />
                     <Route path='/surveys/new' component={SurveyNew} />
-                    
+                    </Switch>
                 </div>
             </BrowserRouter>
         </div>

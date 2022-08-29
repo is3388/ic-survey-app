@@ -33,6 +33,17 @@ app.use(express.urlencoded({extended: false}))
 app.use('/auth', authRouter)
 app.use('/api', billingRouter)
 
+if (process.env.NODE_ENV === 'production') {
+    // Express serve up public assets such as main.js (all js files to build the front end), main.css files
+    // when ready to deploy, run npm run build in client directory to get client/build/static/css and js files
+    app.use(express.static('client/build'))
+    // Express serve up index.html file if it still doesn't recognize the route (no matching)
+    const path = require('path')
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
+
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`))
