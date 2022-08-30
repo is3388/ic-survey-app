@@ -3,6 +3,8 @@ const requireLogin = require('../middlewares/requireLogin')
 const requireCredits = require('../middlewares/requireCredits')
 const mongoose = require('mongoose')
 const Survey = mongoose.model('Survey')
+const mailer = require('../services/Mailer')
+const surveyTemplate = require('../services/emailTemplates/surveyTemplate')
 
 const router = express.Router()
 
@@ -16,6 +18,9 @@ router.post('/', requireLogin, requireCredits, async (req, res) => {
         _user: req.user.id,
         dateSent: Date.now()
     })
+    // send email passing survey object and the template
+    mailer(survey, surveyTemplate(survey))
+
     const newSurvey = survey.save()
     res.status(201).json(newSurvey)
 })

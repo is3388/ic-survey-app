@@ -34,7 +34,7 @@ app.use(express.urlencoded({extended: false}))
 //require('./routes/authRoutes')(app)
 app.use('/auth', authRouter)
 app.use('/api', billingRouter)
-app.use('/surveys', surveyRouter)
+app.use('/api/surveys', surveyRouter)
 
 if (process.env.NODE_ENV === 'production') {
     // Express serve up public assets such as main.js (all js files to build the front end), main.css files
