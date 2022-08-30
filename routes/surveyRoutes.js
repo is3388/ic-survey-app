@@ -20,9 +20,15 @@ router.post('/', requireLogin, requireCredits, async (req, res) => {
     })
     // send email passing survey object and the template
     mailer(survey, surveyTemplate(survey))
-    
-    const newSurvey = survey.save()
-    res.status(201).json(newSurvey)
+    try {
+        await survey.save()
+        req.user.credits -= 1
+        const user = await req.user.save()
+        res.status(200).send(user)
+    }
+    catch(error) {
+        res.status(422).send(error)
+    }
 })
 
 router.get('/', requireLogin, async (req, res) => {
