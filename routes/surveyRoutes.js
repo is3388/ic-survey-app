@@ -20,7 +20,7 @@ router.post('/', requireLogin, requireCredits, async (req, res) => {
     })
     // send email passing survey object and the template
     mailer(survey, surveyTemplate(survey))
-
+    
     const newSurvey = survey.save()
     res.status(201).json(newSurvey)
 })
