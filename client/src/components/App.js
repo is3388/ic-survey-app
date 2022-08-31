@@ -4,8 +4,8 @@ import Header from './Header'
 import Landing from './Landing'
 import { fetchUser } from '../actions'
 import { useDispatch } from 'react-redux'
- 
-const Dashboard = () => <h2>Dashboard</h2>
+import Dashboard from './Dashboard'
+
 const SurveyNew = () => <h2>Survey New</h2>
 
 const App = () => {
