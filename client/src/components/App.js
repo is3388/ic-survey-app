@@ -5,8 +5,7 @@ import Landing from './Landing'
 import { fetchUser } from '../actions'
 import { useDispatch } from 'react-redux'
 import Dashboard from './Dashboard'
-
-const SurveyNew = () => <h2>Survey New</h2>
+import SurveyNew from '../components/surveys/SurveyNew'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -19,7 +18,7 @@ const App = () => {
     return (
         <div className='container'>
             <BrowserRouter>
-                <div>
+                <div className='container'>
                     <Header />
                     <Switch>
                     <Route exact path='/' component={Landing} />
