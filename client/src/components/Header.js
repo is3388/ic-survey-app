@@ -32,7 +32,7 @@ function Header () {
         <nav>
             <div className='nav-wrapper'>
                 <div className="row">
-                    <div className="col s12 primary-color">
+                    <div className="col s12 primary-color" style={{marginBottom:'1rem'}}>
                         <Link to={auth ? '/surveys' : '/'} className='left brand-logo' style={{paddingLeft:'1rem'}}>Email Survey</Link>
                             <ul className='right'>
                                 {renderContent()}
