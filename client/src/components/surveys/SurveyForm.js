@@ -5,14 +5,9 @@ import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form' 
 import SurveyField from './SurveyField'
 import {validateEmail} from '../../utils/validateEmail'
+import formFields from './formFields'
 
 // use this approach (two fields with different values) with map function to create an new array
-const FIELDS = [
-  { name: "title", label: "Title" },
-  { name: "subject", label: "Subject Line" },
-  { name: "body", label: "Email Body" },
-  { name: "emails", label: "Recipient List (use comma to separate emails)" }
-] 
 
 const SurveyForm = ({handleSubmit, onSurveySubmit}) => {
 // handleSubmit is one of built-in helpers like reset, submitting from reduxForm
@@ -20,7 +15,7 @@ const SurveyForm = ({handleSubmit, onSurveySubmit}) => {
  const renderFields = () => {
     return (
         <div>
-       {FIELDS.map(({ name, label }) => {
+       {formFields.map(({ name, label }) => {
           return (
             <Field
               key={name}
@@ -65,7 +60,7 @@ const validate = values => { // values object contain all different values such 
 
   errors.emails = validateEmail(values.emails || '')
 
-  FIELDS.forEach(({name, label}) => {
+  formFields.forEach(({name, label}) => {
     if (!values[name]) {
       errors[name] = `${label} is required` 
     }
