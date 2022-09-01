@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import { Field, reduxForm } from 'redux-form' 
 import SurveyField from './SurveyField'
 import {validateEmail} from '../../utils/validateEmail'
-import formFields from './formFields'
+import {formFields} from './formFields'
 
 // use this approach (two fields with different values) with map function to create an new array
 

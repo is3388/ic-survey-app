@@ -1,4 +1,4 @@
-export default [
+export const formFields = [
     { name: "title", label: "Title" },
     { name: "subject", label: "Subject Line" },
     { name: "body", label: "Email Body" },
