@@ -14,7 +14,7 @@ const FIELDS = [
   { name: "emails", label: "Recipient List (use comma to separate emails)" }
 ] 
 
-const SurveyForm = ({handleSubmit}) => {
+const SurveyForm = ({handleSubmit, onSurveySubmit}) => {
 // handleSubmit is one of built-in helpers like reset, submitting from reduxForm
 
  const renderFields = () => {
@@ -38,11 +38,11 @@ const SurveyForm = ({handleSubmit}) => {
 
   return (
     <div>
-    <form onSubmit={handleSubmit((values) => console.log(values))}>
+    <form onSubmit={handleSubmit(onSurveySubmit)}>
       {renderFields()}
       <div style={{paddingBottom:'2rem'}}>
         <Link to='/surveys' className='red btn-flat white-text'>Cancel</Link>
-        <button type="submit" className="red btn-flat right white-text">
+        <button type="submit" className="grey darken-2 btn-flat right white-text">
             Next
         </button>
       </div>
