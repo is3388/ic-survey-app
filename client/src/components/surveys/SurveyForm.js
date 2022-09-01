@@ -76,5 +76,6 @@ const validate = values => { // values object contain all different values such 
 
 export default reduxForm({
   validate, // validate is key and value is a function called validate
-  form: 'surveyForm'  // a unique identifier for this form
+  form: 'surveyForm', // a unique identifier for this form
+  destroyOnUnmount: false // keep the data entered on the form for Back button in SurveyReview
 })(SurveyForm)
