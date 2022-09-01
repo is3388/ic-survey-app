@@ -4,17 +4,18 @@ import { Link } from 'react-router-dom'
 // Field is helper to rnder any type of HTML element such as textarea, text/file input, checkbox, radio, dropdown
 import { Field, reduxForm } from 'redux-form' 
 import SurveyField from './SurveyField'
+import {validateEmail} from '../../utils/validateEmail'
+
+// use this approach (two fields with different values) with map function to create an new array
+const FIELDS = [
+  { name: "title", label: "Title" },
+  { name: "subject", label: "Subject Line" },
+  { name: "body", label: "Email Body" },
+  { name: "emails", label: "Recipient List (use comma to separate emails)" }
+] 
 
 const SurveyForm = ({handleSubmit}) => {
-// built-in helpers from reduxForm
-  //const { handleSubmit } = props
-// use this approach (two fields with different values) with map function to create an new array
-  const FIELDS = [
-    { name: "title", label: "Title" },
-    { name: "subject", label: "Subject Line" },
-    { name: "body", label: "Email Body" },
-    { name: "emails", label: "Recipient List" }
-  ] 
+// handleSubmit is one of built-in helpers like reset, submitting from reduxForm
 
  const renderFields = () => {
     return (
@@ -50,6 +51,30 @@ const SurveyForm = ({handleSubmit}) => {
    )
 }
 
+const validate = values => { // values object contain all different values such as body, title, emails, subject of the form
+  const errors = {} // errors object is empty
+  /*if (!values.title) {
+    errors.title = 'You must provide a title'
+  }
+  if (!values.subject) {
+    errors.subject = 'You must provide a subject'
+  }
+  if (!values.body) {
+    errors.body = 'You must provide email body'
+  }*/
+
+  errors.emails = validateEmail(values.emails || '')
+
+  FIELDS.forEach(({name, label}) => {
+    if (!values[name]) {
+      errors[name] = `${label} is required` 
+    }
+  })
+ 
+  return errors
+}
+
 export default reduxForm({
+  validate, // validate is key and value is a function called validate
   form: 'surveyForm'  // a unique identifier for this form
 })(SurveyForm)
