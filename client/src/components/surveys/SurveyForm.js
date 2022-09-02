@@ -39,6 +39,7 @@ const SurveyForm = ({handleSubmit, onSurveySubmit}) => {
         <Link to='/surveys' className='red btn-flat white-text'>Cancel</Link>
         <button type="submit" className="grey darken-2 btn-flat right white-text">
             Next
+            <i className='material-icons right'>done</i>
         </button>
       </div>
     </form>
@@ -58,7 +59,7 @@ const validate = values => { // values object contain all different values such 
     errors.body = 'You must provide email body'
   }*/
 
-  errors.emails = validateEmail(values.emails || '')
+  errors.recipients = validateEmail(values.recipients || '')
 
   formFields.forEach(({name, label}) => {
     if (!values[name]) {
