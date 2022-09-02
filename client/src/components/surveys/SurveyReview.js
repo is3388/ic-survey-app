@@ -9,7 +9,7 @@ const SurveyNew = ({onCancel}) => {
     console.log(formValues)
 
     const renderFields = () => {
-      
+       return (
            formFields.map(field => {
               return ( 
                 <div key={field.name}>
@@ -22,15 +22,16 @@ const SurveyNew = ({onCancel}) => {
                 </div>   
                 )
                 }) 
-                 
+            )   
            }
    
     return (
         <div>
             <h5>Please confirm all entries.</h5>
-            {renderFields}
+            {renderFields()}
             <button className='grey darken-1 btn-flat white-text'
-                    onClick={onCancel}>
+                    onClick={onCancel}
+                    style={{marginTop:'1rem'}}>
                         Back
                     </button>
         </div>

@@ -23,6 +23,10 @@ nav ul a {
     font-weight: bold!important;
 }
 
+label {
+    font-size: 1rem!important;
+}
+
 .StripeCheckout span {
     background-image: none!important;
     background: gray!important;
