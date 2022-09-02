@@ -1,11 +1,14 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
-import {formFields} from './formFields'
+import { useSelector, useDispatch } from 'react-redux'
+import { withRouter, useHistory } from 'react-router-dom' //withRouter can access history object to navigate around
+import { formFields } from './formFields'
+import { submitSurvey } from '../../actions'
 
-const SurveyNew = ({onCancel}) => {
-    console.log(formFields)
-
+const SurveyReview = ({onCancel}) => {
+    
     const formValues = useSelector(state => state.form.surveyForm.values)
+    const dispatch = useDispatch()
+    const history = useHistory()
     console.log(formValues)
 
     const renderFields = () => {
@@ -33,9 +36,16 @@ const SurveyNew = ({onCancel}) => {
                     onClick={onCancel}
                     style={{marginTop:'1rem'}}>
                         Back
-                    </button>
+            </button>
+            <button className='grey darken-1 btn-flat white-text right'
+                    style={{marginTop:'1rem'}}
+                    onClick={() => dispatch(submitSurvey(formValues, history))}>  
+                Send Survey
+                <i className='material-icons right'>email</i>
+            </button>
+
         </div>
     )
 }
 
-export default SurveyNew
+export default withRouter(SurveyReview)

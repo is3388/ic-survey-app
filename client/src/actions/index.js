@@ -18,6 +18,13 @@ export const fetchUser = () =>
        dispatch({ type: FETCH_USER, payload: data})
      }
 
+     export const submitSurvey = (values, history) => 
+      async (dispatch) => {
+        const {data} = await axios.post('/api/surveys', values) 
+        history.push('/surveys') // redirect to Dashboard
+          dispatch({ type: FETCH_USER, payload: data})
+      }
+     
  /*export const logoutUser = () => async dispatch => {
     const res = await axios.get('/api/logout')
     dispatch({ type: LOGOUT_USER, payload: res.data});
