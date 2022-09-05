@@ -5,7 +5,7 @@ const requireLogin = require('../middlewares/requireLogin')
 
 const router = express.Router()
 
-router.post('/stripe', requireLogin, async (req, res) => {
+router.post('/', requireLogin, async (req, res) => {
    const charge = await stripe.charges.create({
       amount: 1000, // in cents
       currency: "usd",

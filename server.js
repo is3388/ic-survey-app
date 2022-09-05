@@ -33,7 +33,7 @@ app.use(express.urlencoded({extended: false}))
 // authRoutes return a function and immediately call that function with the express app object
 //require('./routes/authRoutes')(app)
 app.use('/auth', authRouter)
-app.use('/api', billingRouter)
+app.use('/api/stripe', billingRouter)
 app.use('/api/surveys', surveyRouter)
 
 if (process.env.NODE_ENV === 'production') {
