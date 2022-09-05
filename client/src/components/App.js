@@ -6,6 +6,7 @@ import { fetchUser } from '../actions'
 import { useDispatch } from 'react-redux'
 import Dashboard from './Dashboard'
 import SurveyNew from '../components/surveys/SurveyNew'
+import NotFound from './NotFound'
 
 const App = () => {
     const dispatch = useDispatch()
@@ -24,6 +25,7 @@ const App = () => {
                     <Route exact path='/' component={Landing} />
                     <Route exact path='/surveys' component={Dashboard} />
                     <Route path='/surveys/new' component={SurveyNew} />
+                    <Route path='/*' component={NotFound} />
                     </Switch>
                 </div>
             </BrowserRouter>

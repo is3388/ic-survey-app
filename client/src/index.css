@@ -18,6 +18,15 @@
     font-weight:600;
     color: #e76b50;
 }
+
+.content-center {
+    text-align: center;
+}
+
+.not-found {
+    margin-bottom: 2.5rem;
+    font-size: 3rem;
+}
   
 nav ul a {
     font-weight: bold!important;
