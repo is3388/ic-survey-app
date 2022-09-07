@@ -11,14 +11,14 @@ const { URL } = require('url')
 
 const router = express.Router()
 
-router.get('/thanks', (req, res) => {
+router.get('/:surveyId/:choice', (req, res) => {
     res.send('Thanks for voting!')
 })
 
 router.post('/webhooks', (req, res) => { 
-    // req.body contains a list of events and event is event object, destructure it to url and email
+    // req.body contains a list of events and destructure the event object to url and email
     const p = new Path('/api/surveys/:surveyId/:choice')
-    const events = _.chain(req.body) // iterate req.body and map it
+    _.chain(req.body) // iterate req.body and map it
         .map(({email, url}) => {
                 
         if (!url) {
@@ -29,7 +29,7 @@ router.post('/webhooks', (req, res) => {
         const match = p.test(new URL(url).pathname)
         if (match) {
             return { 
-                email, 
+                email: email.toLowerCase().trim(), 
                 surveyId: match.surveyId,
                 choice: match.choice
                 }
@@ -40,9 +40,27 @@ router.post('/webhooks', (req, res) => {
     //iterate events and remove elements with undefined by using lodash compact 
         .compact()
         .uniqBy('email', 'surveyId') // lodash uniqBy to remove duplicate elements
-        .value() // return the value
-        console.log(events)
-        res.send({}) // tell sendgrid everything is ok, no need to resend request to prevent duplicate
+        // surveyId, email and choice from event object
+        .each(({surveyId, email, choice}) => 
+        {
+            Survey.updateOne({ // find the first match record with id and recipients with criteria
+            _id: surveyId,
+            recipients: {
+            $elemMatch: { 
+            email: email,
+            responded: false
+            }
+            }
+        }, { // update part
+          $inc: {[choice]: 1}, // use key interpolation to evaluate at runtime to get yes | no and increment by 1
+          $set: {'recipients.$.responded': true}, // set responded to true for recipients that retrieved from first part
+          lastResponded: new Date()
+          // $set: {'recipients.$.responded': true, lastResponded: new Date()}
+        }).exec() // execute the query
+   }
+  ) // end of loop
+    .value() // return the value        
+    res.send({}) // tell sendgrid everything is ok, no need to resend request to prevent duplicate
 })
 
 router.post('/', requireLogin, requireCredits, async (req, res) => {
@@ -51,7 +69,7 @@ router.post('/', requireLogin, requireCredits, async (req, res) => {
         title,
         subject,
         body,
-        recipients: recipients.split(',').map(email => ({email: email.trim()})), // an array of string contains all recipients email address, map(email address) to object
+        recipients: recipients.split(',').map(email => ({email: email.toLowerCase().trim()})), // an array of string contains all recipients email address, map(email address) to object
         _user: req.user.id,
         dateSent: Date.now()
     })
