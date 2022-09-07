@@ -21,7 +21,7 @@ router.post('/webhooks', (req, res) => {
     // create a parser object and use Path to extract every wildcard :something that match up from the route 
     // like survey id, choice or null (in case can't extract)
     const p = new Path('/api/surveys/:surveyId/:choice') 
-    _.chain(req.body) // iterate req.body and map it
+    _.chain(req.body) // iterate const events = req.body and map it each event contains email url
           .filter(({event}) => event === 'click') // newly add
         .map(({email, url}) => {
                 
@@ -56,7 +56,7 @@ router.post('/webhooks', (req, res) => {
           $set: {'recipients.$.responded': true}, // set responded to true for recipients that retrieved from first part
           lastResponded: new Date()
           // $set: {'recipients.$.responded': true, lastResponded: new Date()}
-        }).exec() // execute the query
+        }).exec() // we only build the query, so execute the query. But no need .exec() if use async await as then is implicitly included
    }
   ) // end of loop
     .value() // return the value        
@@ -87,7 +87,19 @@ router.post('/', requireLogin, requireCredits, async (req, res) => {
 })
 
 router.get('/', requireLogin, async (req, res) => {
-
-})
+    /* use find with 2nd argument
+      const surveys = await Survey.find(
+      { _user: req.user.id },
+      { recipients: false }
+    ) // use projection
+    const surveys = await Survey.find({ _user: req.user.id },[-recipients])*/
+      const surveys = await Survey.find({_user: req.user.id})
+        .select('-recipients') // exclude recipients from the query
+        //.select({recipients: false})
+        if (!surveys) {
+          return res.status(404).send('No survey found')
+        }
+        res.status(200).send(survey)
+    })
 
 module.exports = router
