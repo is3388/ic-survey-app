@@ -16,17 +16,17 @@ router.get('/:surveyId/:choice', (req, res) => {
 })
 
 router.post('/webhooks', (req, res) => { 
+  
     // req.body contains a list of events and destructure the event object to url and email
-    const p = new Path('/api/surveys/:surveyId/:choice')
+    // create a parser object and use Path to extract every wildcard :something that match up from the route 
+    // like survey id, choice or null (in case can't extract)
+    const p = new Path('/api/surveys/:surveyId/:choice') 
     _.chain(req.body) // iterate req.body and map it
+          .filter(({event}) => event === 'click') // newly add
         .map(({email, url}) => {
                 
-        if (!url) {
-          return res.status(400).json({ error: 'url is undefined' });
-        } 
-        // extract the route with surveyId and choice
-        // create a parser object that extracts every wildcard match up from the route which is survey id and choice or null(cannot extract)
-        const match = p.test(new URL(url).pathname)
+        //pathname is only the path without domain name and match is an object either with survey id and choice or null       
+        const match = p.test(new URL(url).pathname) 
         if (match) {
             return { 
                 email: email.toLowerCase().trim(), 
@@ -38,7 +38,7 @@ router.post('/webhooks', (req, res) => {
         })
     
     //iterate events and remove elements with undefined by using lodash compact 
-        .compact()
+        .compact() 
         .uniqBy('email', 'surveyId') // lodash uniqBy to remove duplicate elements
         // surveyId, email and choice from event object
         .each(({surveyId, email, choice}) => 
