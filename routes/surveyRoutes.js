@@ -104,4 +104,16 @@ router.get('/', requireLogin, async (req, res) => {
         res.status(200).send(surveys)
     })
 
+router.delete('/:surveyId', requireLogin, async (req, res) => {
+    const survey = await Survey.findById(req.params.surveyId)
+    if (!survey) {
+        return res.status(404).send('No survey found')
+    }
+    if (survey._user.toString() !== req.user.id) {
+        return res.status(401).send('Not authorized')
+    }
+    await survey.remove()
+    res.status(200).send('Survey deleted')
+})
+
 module.exports = router

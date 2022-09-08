@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchSurveys } from '../../actions'
+import { fetchSurveys, deleteSurvey } from '../../actions'
 
 const SurveyList = () => {
 
@@ -9,7 +9,7 @@ const SurveyList = () => {
 
     useEffect(() => {
         dispatch(fetchSurveys())
-    }, [dispatch])
+    }, [dispatch, surveys])
 
     const renderSurveys = () => {
         return surveys.map(survey => {
@@ -25,7 +25,15 @@ const SurveyList = () => {
                 </p>
               </div>
               <div className="card-action">
-                <p className='orange-text'>Yes: {survey.yes}</p>
+                
+                <p className='orange-text'>Yes: {survey.yes} 
+                  <button 
+                      className='btn white orange-text right' 
+                      onClick={()=>onDelete(survey._id)}
+                      style={{fontWeight:'bold'}}>
+                    Delete
+                  </button>
+                </p>
                 <p className='orange-text'>No: {survey.no}</p>
               </div>
             </div>
@@ -33,6 +41,9 @@ const SurveyList = () => {
         })
       }
 
+      const onDelete = (id) => {
+        dispatch(deleteSurvey(id))
+      }
 
     return (
         <div>{renderSurveys()}</div>
