@@ -10,16 +10,16 @@ import NotFound from './NotFound'
 
 const App = () => {
     const dispatch = useDispatch()
-
+        
     useEffect(() => {
-        dispatch(fetchUser())
-         // eslint-disable-next-line
+        dispatch(fetchUser()) 
+        // eslint-disable-next-line      
     }, [])
 
     return (
         <div className='container'>
             <BrowserRouter>
-                <div className='container'>
+                <div>
                     <Header />
                     <Switch>
                     <Route exact path='/' component={Landing} />

@@ -94,12 +94,14 @@ router.get('/', requireLogin, async (req, res) => {
     ) // use projection
     const surveys = await Survey.find({ _user: req.user.id },[-recipients])*/
       const surveys = await Survey.find({_user: req.user.id})
+        .sort({dateSent: -1})
         .select('-recipients') // exclude recipients from the query
         //.select({recipients: false})
+        
         if (!surveys) {
           return res.status(404).send('No survey found')
         }
-        res.status(200).send(survey)
+        res.status(200).send(surveys)
     })
 
 module.exports = router
