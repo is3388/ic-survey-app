@@ -6,10 +6,10 @@ const SurveyList = () => {
 
     const surveys = useSelector(state => state.surveys)
     const dispatch = useDispatch()
-
+    
     useEffect(() => {
         dispatch(fetchSurveys())
-    }, [dispatch, surveys])
+    }, [dispatch])
 
     const renderSurveys = () => {
         return surveys.map(survey => {
@@ -41,8 +41,12 @@ const SurveyList = () => {
         })
       }
 
+      const fetchData = () => {
+        dispatch(fetchSurveys())
+      } 
       const onDelete = (id) => {
         dispatch(deleteSurvey(id))
+        fetchData()
       }
 
     return (
