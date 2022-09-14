@@ -11,8 +11,19 @@ const { URL } = require('url')
 
 const router = express.Router()
 
-router.get('/:surveyId/:choice', (req, res) => {
+/*router.get('/:surveyId/:choice', (req, res) => {
     res.send('Thanks for voting!')
+})*/
+
+router.get('/:surveyId/:choice', (req, res) => {
+    res.setHeader('Content-type','text/html')
+    if (req.params.choice === 'yes')
+    {
+        res.send('<h1>Email Survey</h1><p><strong>Thanks for your voting and support. We love to hear your positive feedback on our service.</strong></p><p><strong>We promise that we will continue to bring out the best service to our customers.</strong></p>')
+    }
+    else {
+    res.send('<h1>Email Survey</h1><p><strong>Thanks for your voting. We are so sorry to hear that you are not fully satisfied with our service.</strong></p><p><strong>We promise that we will make possible improvement and bring out the best service to our customers.</strong></p>')
+    }
 })
 
 router.post('/webhooks', (req, res) => { 
