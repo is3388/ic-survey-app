@@ -1,70 +1,53 @@
-# Getting Started with Create React App
+## Email Survey
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+#### Demo : https://ic-survey-app.herokuapp.com/
 
-## Available Scripts
+###### Sending Emails to Clients for Feedback.
 
-In the project directory, you can run:
+---
 
-### `npm start`
+## Description
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Full Stack Application using MERN (Mongo, Express, React, Node) technologies to create Surveys by business owners and send surveys to their customers.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+App uses Stripe API to mimic payments to purchase credits which are used to create survyes. App also uses SendGrid API to create emails dipatching to customers.  
 
-### `npm test`
+## Instructions
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Login using Google login.
+- App requires survey owner to maintain a credit balance. Add Credits upon login and display the credits balance.
+- Once login successfully, a list of surveys created by the login user display on the dashboard where it shows the total number of response to each survey.
+- Click on the red + icon on the bottom right side of the screen to create a new Survey.
+- Click on the delete button for the corresponding survey on the dashboard, survey owner can delete a survey.
+- Fill out the Survey Form and send to the customers' email addresses.
+- Customers who receive the emails, can respond to the Survey through a Yes/No option from the email. 
+- Customers will get different thankyou notes based on their feedback choice.
 
-### `npm run build`
+#### Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- The backend of this project uses Express and MongoDB. 
+- Backend provides API to connect with our React front-end application. 
+- Backend uses passport Google OAuth 2.0 Strategies to manage authentication. 
+- App uses SendGrid API to send emails to customers. The API allows sending emails to multiple email addresses and allows reply functionality once a customer clicks on Yes/No option.  Survey owners will know how many responses have they recieved for a given Survey. 
+- App uses Stripe API to mimic payments. Stripe provides a test credit card number (4242 4242 4242 4242) to be used on adding credits. USD10.00 is added for each credit added. Once a user maintains a positive balance, the user can create Surveys. Each Survey costs 1 credit.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Front End
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- The Front End of the application uses React.
+- App uses Redux for state management and tracks authenticated users, user details and surveys created by the user.
+- App uses Layout components to display public and private content depending on user authentication state.
+- App uses Materialize.CSS for simplistic and responsive view. 
 
-### `npm run eject`
+#### App is built using the following tech stack :
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Axios
+- Express
+- Heroku
+- Google OAuth
+- Materialize CSS
+- Mongo DB
+- React
+- Redux 
+- SendGrid API
+- Stripe API
+- App is developed with Prod and Dev environments
